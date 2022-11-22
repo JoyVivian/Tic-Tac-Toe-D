@@ -37,6 +37,7 @@ class GameModel {
     }
 
     void play(bool is_computer, int location, char mark) {
+        writeln("Enter the play");
         int move = -1;
         if(is_computer) {
             move = board.find_best_move();

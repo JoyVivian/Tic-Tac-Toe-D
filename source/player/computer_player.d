@@ -17,6 +17,6 @@ class ComputerPlayer : Player
     */
     public override void play(int location, Board board)
     {
-        
+        board.move(location, mark);
     }
 }

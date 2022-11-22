@@ -45,7 +45,7 @@ class Board {
         }
 
         if (is_valid(location)) {
-            cells[location] = mark;
+            cur_board[location] = mark;
         } 
     }
 
@@ -167,7 +167,7 @@ class Board {
     * Evaluation function for `MinMax` algorithm.
     * 
     * PlayerX is always the computer player. 
-    * Return 10 if `X` wins; Return -10 if `O` wins. Otherwise, return 0.
+    * Return 10 if `X` wins; Return -10 if `O` wins. Return 0 if tie. Otherwise, return 1.
     */
     private int evaluate(char[] cur_state) {
         if (check('X', cur_state)) {
@@ -185,11 +185,11 @@ class Board {
         return 1;
     }
 
-    private int[] get_legal_moves() {
+    private int[] get_legal_moves(char[] cur_state) {
         int[] legal_moves;
 
         for(int i = 0; i < cells.length; i++) {
-            if (cells[i] == '\0') {
+            if (cur_state[i] == '\0') {
                 legal_moves ~= i;
             }
         }
@@ -199,7 +199,11 @@ class Board {
 
     private char[] get_next_state(char[] cur_state, int act_location, char mark) {
         char[] next_state = cur_state.dup();
-        updateCell(next_state, act_location, mark);
+
+        if (cur_state[act_location] == '\0') {
+            next_state[act_location] = mark;
+        } 
+
         return next_state;
     }
 
@@ -213,8 +217,8 @@ class Board {
 
         int max_value = -10000;
 
-        foreach(int move; get_legal_moves()) {
-            char[] next_state = get_next_state(cells, move, 'X').dup();
+        foreach(int move; get_legal_moves(cur_state)) {
+            char[] next_state = get_next_state(cur_state, move, 'X');
             int tmp_max = get_min(next_state);
             
             max_value = max(max_value, tmp_max);
@@ -234,8 +238,9 @@ class Board {
 
         int min_value = 10000;
         
-        foreach(int move; get_legal_moves()) {
-            char[] next_state = get_next_state(cells, move, 'O').dup();
+        foreach(int move; get_legal_moves(cur_state)) {
+            char[] next_state = get_next_state(cur_state, move, 'O');
+    
             int tmp_min = get_max(next_state);
             
             min_value = min(min_value, tmp_min);
@@ -248,8 +253,10 @@ class Board {
         int max_value = -10000;
         int max_act = -1;
 
-        foreach(int move; get_legal_moves()) {
-            char[] next_state = get_next_state(cells, move, 'X').dup();
+        char [] cur_state = this.cells.dup();
+
+        foreach(int move; get_legal_moves(cur_state)) {
+            char[] next_state = get_next_state(cur_state, move, 'X');
 
             int tmp_max = get_min(next_state);
 

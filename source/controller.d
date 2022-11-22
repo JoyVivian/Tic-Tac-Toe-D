@@ -36,13 +36,16 @@ class Controller
             writeln("Please choose a location entering number 0-8 showed above:");
 
             int location = -1;
-
-            readf(" %d", &location);
-
-            while (!game_model.is_valid(location))
+            if (!is_computer || (is_computer && turn == 'O'))
             {
-                writeln("This location is invalid please enter another location.");
                 readf(" %d", &location);
+
+                while (!game_model.is_valid(location))
+                {
+                    writeln("This location is invalid please enter another location.");
+                    readf(" %d", &location);
+                }
+
             }
 
             game_model.play(is_computer, location, turn);
