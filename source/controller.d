@@ -15,7 +15,7 @@ class Controller
 
     this(bool is_computer)
     {
-        is_computer = is_computer;
+        this.is_computer = is_computer;
     }
 
     void start_game(GameModel game_model, bool is_random)

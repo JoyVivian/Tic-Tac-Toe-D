@@ -214,7 +214,8 @@ class Board {
         int max_value = -10000;
 
         foreach(int move; get_legal_moves()) {
-            int tmp_max = get_min(get_next_state(cur_state, move, 'X'));
+            char[] next_state = get_next_state(cells, move, 'X').dup();
+            int tmp_max = get_min(next_state);
             
             max_value = max(max_value, tmp_max);
         }
@@ -223,6 +224,7 @@ class Board {
     }
 
     private int get_min(char[] cur_state) {
+
         int score = evaluate(cur_state);
 
         // Terminate tests.
@@ -233,7 +235,8 @@ class Board {
         int min_value = 10000;
         
         foreach(int move; get_legal_moves()) {
-            int tmp_min = get_max(get_next_state(cur_state, move, 'O'));
+            char[] next_state = get_next_state(cells, move, 'O').dup();
+            int tmp_min = get_max(next_state);
             
             min_value = min(min_value, tmp_min);
         }
@@ -246,7 +249,9 @@ class Board {
         int max_act = -1;
 
         foreach(int move; get_legal_moves()) {
-            int tmp_max = get_min(get_next_state(cells, move, 'X'));
+            char[] next_state = get_next_state(cells, move, 'X').dup();
+
+            int tmp_max = get_min(next_state);
 
             if(max_value < tmp_max) {
                 max_value = tmp_max;
