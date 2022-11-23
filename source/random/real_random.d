@@ -8,8 +8,8 @@ import random.random_value;
  */
 class RealRandom : RandomValue {
     public int get_random_value() {
-        auto rnd = MinstdRand0(42);
-        auto val = [0, 1].choice(rnd);
-        return val;
+        auto val = dice(0.5, 0.5);
+
+        return val == 0 ? 0 : 1;
     }
 }

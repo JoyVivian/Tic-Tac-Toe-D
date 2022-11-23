@@ -6,9 +6,9 @@ import controller;
 void main()
 {
     // Choose human opponent or computer.
-    char option = '\0';
+    char option = ' ';
     bool is_computer = false;
-    while (option == '\0')
+    while (option == ' ')
     {
         writefln("Do you want compputer to be your opponent?(N/y)");
         readf(" %c", &option);

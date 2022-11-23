@@ -4,13 +4,14 @@ import std.range;
 import std.format;
 import std.stdio;
 import std.algorithm;
+import std.random;
 
 /** 
  * This is the class for the current board.
  *
  */
 class Board {
-    char[9] cells = ['\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'];
+    char[9] cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
 
     /** 
      * Get the string of current board status.
@@ -72,7 +73,7 @@ class Board {
             return 'O';
         }
 
-        return '\0';
+        return ' ';
     }
 
     /** 
@@ -85,7 +86,7 @@ class Board {
     }
     
     private bool check_tie(char[] cur_state) {
-        if (!has_empty(cur_state) && check_win(cur_state) == '\0') {
+        if (!has_empty(cur_state) && check_win(cur_state) == ' ') {
         return true;
       } 
 
@@ -94,7 +95,7 @@ class Board {
 
     private bool has_empty(char[] cur_state) {
         for (int i = 0; i < cells.length; i++) {
-            if (cur_state[i] == '\0') {
+            if (cur_state[i] == ' ') {
                 return true;
             }
         }
@@ -146,7 +147,7 @@ class Board {
             throw new Exception("This location is illegal");
         }
 
-        return cells[location] == '\0' ? true : false;
+        return cells[location] == ' ' ? true : false;
     }
 
     /**
@@ -185,11 +186,11 @@ class Board {
         return 1;
     }
 
-    private int[] get_legal_moves(char[] cur_state) {
+    public int[] get_legal_moves(char[] cur_state) {
         int[] legal_moves;
 
         for(int i = 0; i < cells.length; i++) {
-            if (cur_state[i] == '\0') {
+            if (cur_state[i] == ' ') {
                 legal_moves ~= i;
             }
         }
@@ -200,7 +201,7 @@ class Board {
     private char[] get_next_state(char[] cur_state, int act_location, char mark) {
         char[] next_state = cur_state.dup();
 
-        if (cur_state[act_location] == '\0') {
+        if (cur_state[act_location] == ' ') {
             next_state[act_location] = mark;
         } 
 
@@ -267,6 +268,14 @@ class Board {
         }
 
         return max_act;
+    }
+
+    public int get_random_legal_move() {
+        int[] legal_moves = get_legal_moves(this.cells);
+        
+        auto rnd = MinstdRand0(42);
+        auto val = legal_moves.choice(rnd);
+        return val;
     }
 }
 
