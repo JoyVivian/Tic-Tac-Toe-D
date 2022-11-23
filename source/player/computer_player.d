@@ -3,6 +3,9 @@ module player.computer_player;
 import player.player;
 import board;
 
+/**
+* Computer player of the game.
+*/
 class ComputerPlayer : Player
 {
     char mark;

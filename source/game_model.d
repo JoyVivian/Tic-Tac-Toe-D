@@ -8,12 +8,20 @@ import player.player_factory;
 
 import board;
 
+/** 
+* Model layer for this game.
+*/
 class GameModel
 {
     Player player_x;
     Player player_o;
     Board board;
 
+    /** 
+    * Constructor for `GameModel`.
+    * Params:
+    * - is_computer: Represents the opponent of the game is compoter or not.
+    */
     this(bool is_computer)
     {
         PlayerFactory player_factory = new PlayerFactory();
@@ -23,27 +31,42 @@ class GameModel
         board = new Board();
     }
 
-    char is_win()
+    /** 
+    * Check whether there is a winner or not.
+    */
+    public char is_win()
     {
         return board.is_win();
     }
 
-    bool is_tie()
+    /** 
+    *  CHeck whether the current state is tie or not.
+    */
+    public bool is_tie()
     {
         return board.is_tie();
     }
 
-    bool is_valid(int location)
+    /** 
+    * Check whether a location is valid or not.
+    */
+    public bool is_valid(int location)
     {
         return board.is_valid(location);
     }
 
-    string show_instruction_board()
+    /** 
+    * Show the game instruction.
+    */
+    public string show_instruction_board()
     {
         return board.show_instruction_board();
     }
 
-    void play(bool is_computer, int location, char mark)
+    /**
+    *  Player play and use this function to update status of board.
+    */
+    public void play(bool is_computer, int location, char mark)
     {
         int move = -1;
         if (is_computer)
@@ -75,11 +98,18 @@ class GameModel
         }
     }
 
-    string display()
+    /**
+    * Display the current board state.
+    */
+    public string display()
     {
         return board.display();
     }
 
+    /** 
+    * Helper function for play(). There has 60% chance that the computer player will choose the best move using `MinMax` Algorithm. 
+    *           Otherwise, it will choose a random legal move.
+    */
     private auto roll()
     {
 

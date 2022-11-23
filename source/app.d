@@ -3,7 +3,10 @@ import std.stdio;
 import game_model;
 import controller;
 
-void main()
+/**
+* The entrance of the game.
+*/
+public void main()
 {
     // Choose human opponent or computer.
     char option = ' ';

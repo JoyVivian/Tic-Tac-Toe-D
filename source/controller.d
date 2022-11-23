@@ -13,11 +13,19 @@ class Controller
 {
     bool is_computer = false;
 
+    /** 
+    * Constructor of controller.
+    * Params:
+    *   - is_computer: Represents whether the opponent is computer or not.
+    */
     this(bool is_computer)
     {
         this.is_computer = is_computer;
     }
 
+    /** 
+    * Control the workflow of this game.
+    */
     void start_game(GameModel game_model, bool is_random)
     {
         // Genrate a number. `0` represents 'X' starts first. `1` represents `O` starts first.

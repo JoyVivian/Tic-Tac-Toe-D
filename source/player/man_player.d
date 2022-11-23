@@ -5,6 +5,9 @@ import std.stdio;
 import player.player;
 import board;
 
+/** 
+* Human player of the game.
+*/
 class ManPlayer : Player
 {
     char mark;

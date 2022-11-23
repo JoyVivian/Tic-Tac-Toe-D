@@ -36,7 +36,7 @@ class Board {
      *  - location: the index of the cell
      *  - mark: the mark to put into the cell.
      */
-    void updateCell(char[] cur_board, int location, char mark) {
+    private void updateCell(char[] cur_board, int location, char mark) {
         if (location < 1 || location > 9) {
             throw new Exception("This location is illegal");
         }
@@ -51,7 +51,11 @@ class Board {
     }
 
 
-    void move(int location, char mark) {
+    /** 
+     * Public function to update a cell.
+     * 
+     */
+    public void move(int location, char mark) {
         updateCell(cells, location, mark);
     }
 
@@ -64,6 +68,11 @@ class Board {
         return check_win(cells);
     }
 
+    /** 
+     * Check whether the current state is win or not.
+     *
+     * Returns: If there is a winner, return the mark of the winner; Otherwise, return an space.
+     */
     private char check_win(char[] cur_state) {
         if (check('X', cur_state)) {
             return 'X';
@@ -85,6 +94,12 @@ class Board {
         return check_tie(cells);
     }
     
+    /** 
+     * Check whether the current state is tie or not.
+     * Params:
+     *   cur_state = current state to be checked. 
+     * Returns: If there is a tie, return true; Otherwise, return false.
+     */
     private bool check_tie(char[] cur_state) {
         if (!has_empty(cur_state) && check_win(cur_state) == ' ') {
         return true;
@@ -93,6 +108,12 @@ class Board {
       return false;
     }
 
+    /** 
+     * Check whether there is an empty cell for a user to play.
+     * Params:
+     *   cur_state = current state to be checked.
+     * Returns: If there is an empty cell, return true; Otherwise, return false.
+     */
     private bool has_empty(char[] cur_state) {
         for (int i = 1; i < cells.length; i++) {
             if (cur_state[i] == ' ') {
@@ -186,7 +207,10 @@ class Board {
         return 1;
     }
 
-    public int[] get_legal_moves(char[] cur_state) {
+    /**
+    * Helper function for `MinMax` algorithm. Get all legal moves of current state.
+    */
+    private int[] get_legal_moves(char[] cur_state) {
         int[] legal_moves;
 
         for(int i = 1; i < cells.length; i++) {
@@ -198,6 +222,9 @@ class Board {
         return legal_moves;
     }
 
+    /**
+    * Helper function for `MinMax` algorithm. Get next state of current state.
+    */
     private char[] get_next_state(char[] cur_state, int act_location, char mark) {
         char[] next_state = cur_state.dup();
 
@@ -208,6 +235,9 @@ class Board {
         return next_state;
     }
 
+    /**
+    * Helper function for `MinMax` algorithm. Maximize the points of computer player.
+    */
     private int get_max(char[] cur_state) {
         int score = evaluate(cur_state);
 
@@ -228,6 +258,9 @@ class Board {
         return max_value;
     }
 
+    /**
+    * Helper function for `MinMax` algorithm. Minimize the points of human player.
+    */
     private int get_min(char[] cur_state) {
 
         int score = evaluate(cur_state);
@@ -250,6 +283,11 @@ class Board {
         return min_value;
     }
 
+    /** 
+    * MinMax algorithm.
+    *
+    * Returns: The best location that computer plyer should place.
+    */
     public int find_best_move() {
         int max_value = -10000;
         int max_act = -1;
@@ -270,6 +308,9 @@ class Board {
         return max_act;
     }
 
+    /** 
+    * Get a random legal move. 
+    */
     public int get_random_legal_move() {
         int[] legal_moves = get_legal_moves(this.cells);
         
