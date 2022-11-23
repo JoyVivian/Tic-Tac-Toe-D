@@ -11,7 +11,7 @@ import std.random;
  *
  */
 class Board {
-    char[9] cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+    char[10] cells = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
 
     /** 
      * Get the string of current board status.
@@ -19,10 +19,10 @@ class Board {
      * Returns: The string of current board status
      */
     string display() {
-        string first = format("%c | %c | %c\n", cells[0], cells[1], cells[2]);
+        string first = format("%c | %c | %c\n", cells[1], cells[2], cells[3]);
         string separator = ("---------------\n");
-        string second = format("%c | %c | %c\n", cells[3], cells[4], cells[5]);
-        string third = format("%c | %c | %c\n", cells[6], cells[7], cells[8]);
+        string second = format("%c | %c | %c\n", cells[4], cells[5], cells[6]);
+        string third = format("%c | %c | %c\n", cells[7], cells[8], cells[9]);
 
         string total = first ~ separator ~ second ~ separator ~ third;
         
@@ -37,7 +37,7 @@ class Board {
      *  - mark: the mark to put into the cell.
      */
     void updateCell(char[] cur_board, int location, char mark) {
-        if (location < 0 || location > 8) {
+        if (location < 1 || location > 9) {
             throw new Exception("This location is illegal");
         }
 
@@ -94,7 +94,7 @@ class Board {
     }
 
     private bool has_empty(char[] cur_state) {
-        for (int i = 0; i < cells.length; i++) {
+        for (int i = 1; i < cells.length; i++) {
             if (cur_state[i] == ' ') {
                 return true;
             }
@@ -116,21 +116,21 @@ class Board {
         }
 
         // Check lines.
-        for (int i = 0; i <= 6; i+=3) {
+        for (int i = 1; i <= 6; i+=3) {
             if (cells[i+0] == mark && cells[i + 1] == mark && cells[i + 2] == mark) {
                 return true;
             }
         }
 
         // Check columns.
-        for (int i = 0; i <=2; i++) {
+        for (int i = 1; i <=3; i++) {
             if (cells[i+0] == mark && cells[i + 3] == mark && cells[i + 6] == mark) {
                 return true;
             }
         }
         // Check diagonals.
-        if ((cells[0] == mark && cells[4] == mark && cells[8] == mark)
-        || (cells[2] == mark && cells[4] == mark && cells[6] == mark)) {
+        if ((cells[1] == mark && cells[5] == mark && cells[9] == mark)
+        || (cells[3] == mark && cells[5] == mark && cells[7] == mark)) {
             return true;
         }
 
@@ -143,7 +143,7 @@ class Board {
     * Returns: If the location is valid, return true; Otherwise, return false.
     */
     public bool is_valid(int location) {
-        if (location < 0 || location > 8) {
+        if (location < 1 || location > 9) {
             throw new Exception("This location is illegal");
         }
 
@@ -154,10 +154,10 @@ class Board {
     * Show instruction board to player to help them understand location.
     */
     public string show_instruction_board() {
-        string first = "0 | 1 | 2 \n";
+        string first = "1 | 2 | 3 \n";
         string separator = "---------------\n";
-        string second = "3 | 4 | 5 \n";
-        string third = "6 | 7 | 8 \n";
+        string second = "4 | 5 | 6 \n";
+        string third = "7 | 8 | 9 \n";
 
         string total = first ~ separator ~ second ~ separator ~ third;
         
@@ -189,7 +189,7 @@ class Board {
     public int[] get_legal_moves(char[] cur_state) {
         int[] legal_moves;
 
-        for(int i = 0; i < cells.length; i++) {
+        for(int i = 1; i < cells.length; i++) {
             if (cur_state[i] == ' ') {
                 legal_moves ~= i;
             }

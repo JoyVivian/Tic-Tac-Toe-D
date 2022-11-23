@@ -42,7 +42,7 @@ class Controller
             int location = -1;
             if (!is_computer || (is_computer && turn == 'O'))
             {
-                writeln("Please choose a location entering number 0-8 showed above:");
+                writeln("Please choose a location entering number 1-9 showed above:");
                 readf(" %d", &location);
 
                 while (!game_model.is_valid(location))
