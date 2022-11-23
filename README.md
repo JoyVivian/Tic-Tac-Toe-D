@@ -2,7 +2,7 @@
 
 ### 1. About
 
-This is a Tic Tac Toe game written in [Dlang](https://dlang.org/. This game support human player play with human player and human player play with computer player. This game use `MinMax` algorithm as the AI algorithm to guide the computer player. In order to make the game fun. There will be 60% chance that the computer player will follow the `MinMax` algorithm's guide and 40% chance it will randomly choose a legal move.
+This is a Tic Tac Toe game written in [Dlang](https://dlang.org/). This game support human player play with human player and human player play with computer player. This game use `MinMax` algorithm as the AI algorithm to guide the computer player. In order to make the game fun. There will be 60% chance that the computer player will follow the `MinMax` algorithm's guide and 40% chance it will randomly choose a legal move.
 
 ### 2. How to run
 
