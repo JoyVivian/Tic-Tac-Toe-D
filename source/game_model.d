@@ -115,8 +115,6 @@ class GameModel
 
         auto val = dice(0.6, 0.4);
 
-        writeln(val);
-
         return val;
     }
 }
